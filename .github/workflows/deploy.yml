@@ -1,0 +1,36 @@
+name: Deploy Portfolio
+
+on:
+  push: # Trigger on repo push
+    branches:
+      - temp # Update to preferred branch - master, main etc.
+  workflow_dispatch: # Enables manual triggering
+
+  # Comment out if not interested in scheduled deployments
+  schedule: 
+    - cron: '0 0 * * *'  # Deploy portfolio site updates daily by 12am
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install MKDocs & Dependencies
+        run: pip3 install -r requirements.txt
+
+      - name: Build MkDocs Site
+        run: mkdocs build
+
+      - name: Deploy Site to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: site
