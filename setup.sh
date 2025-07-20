@@ -158,7 +158,7 @@ EOF
 cat <<EOF > docs/overrides/partials/logo.html
 {% block site_nav %}
   <div class="social-icons">
-    <img src="../assets/images/logo.svg" alt="Profile" class="custom-icon" />
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/materialformkdocs.svg" alt="Profile" class="custom-icon" />
   </div>
 {% endblock %}
 
